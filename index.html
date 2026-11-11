@@ -1,193 +1,155 @@
 <!DOCTYPE html>
 <html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Học từ vựng tiếng Thái</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600&family=Mali:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai+Looped:wght@400;600&family=Sarabun:wght@400;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root{--bg:#f6f5f1;--sf:#fff;--tx:#1f2328;--mu:#6b7280;--ac:#d9480f;--ok:#2f9e44;--bad:#e03131;--bd:#e3e0d8}
-@media(prefers-color-scheme:dark){:root{--bg:#16181b;--sf:#202429;--tx:#eceae4;--mu:#98a0aa;--ac:#ff8a4c;--ok:#51cf66;--bad:#ff6b6b;--bd:#343a40}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 Sarabun,system-ui,sans-serif}
-.w{max-width:820px;margin:0 auto;padding:14px}
-h1{font-size:20px;margin:4px 0 10px}
-.bar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
-button,select,input{font:inherit;color:var(--tx);background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:6px 11px;cursor:pointer}
-button:hover{border-color:var(--ac)}button.p{background:var(--ac);color:#fff;border-color:var(--ac)}
-.tabs button{border-radius:20px}.tabs button.on{background:var(--tx);color:var(--bg)}
-.card{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-top:10px}
-.th{font-family:Sarabun,'Noto Sans Thai',sans-serif}.big{font-size:56px;line-height:1.3;text-align:center}
-.fc{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;cursor:pointer;text-align:center}
-.mu{color:var(--mu)}.rom{color:var(--ac)}
-.opt{display:block;width:100%;text-align:left;margin-top:8px;padding:10px 14px}
-.opt.ok{background:var(--ok);color:#fff;border-color:var(--ok)}.opt.no{background:var(--bad);color:#fff;border-color:var(--bad)}
-.row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
-table{width:100%;border-collapse:collapse}td{padding:6px;border-bottom:1px solid var(--bd);vertical-align:top}
-.chip{display:inline-block;font-size:28px;padding:2px 10px;margin:3px;border:1px solid var(--bd);border-radius:8px}
-canvas{width:100%;height:220px;border:1px dashed var(--bd);border-radius:10px;touch-action:none;background:var(--bg)}
-svg text{fill:transparent;stroke:var(--ac);stroke-width:1.5;stroke-dasharray:500;stroke-dashoffset:500;animation:d 3s forwards}
-@keyframes d{70%{stroke-dashoffset:0;fill:transparent}100%{stroke-dashoffset:0;fill:var(--ac)}}
-dialog{border:1px solid var(--bd);border-radius:12px;background:var(--sf);color:var(--tx);max-width:420px;width:92%}
-dialog input,dialog textarea{width:100%;margin:4px 0;font:inherit;background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:6px}
-</style></head><body><div class="w">
-<h1>🇹🇭 Học từ vựng tiếng Thái</h1>
-<div class="bar"><select id="sel"></select>
-<button onclick="upl.click()">📂 Tải file (xlsx/csv)</button><button onclick="addW()">➕ Thêm từ</button>
-<button onclick="ren()">✏️ Đổi tên</button><button onclick="delSet()">🗑️ Xóa mục</button>
-<button onclick="bak()">💾 Sao lưu</button><button onclick="rst.click()">♻️ Khôi phục</button>
-<input type="file" id="upl" accept=".xlsx,.xls,.csv" hidden><input type="file" id="rst" accept=".json" hidden></div>
-<div class="bar tabs" id="tabs"></div><div id="main"></div>
-<dialog id="dlg"><form method="dialog"><b>Thêm từ vào mục này</b>
-<input id="a1" placeholder="Tiếng Thái *"><input id="a2" placeholder="Phiên âm"><input id="a3" placeholder="Nghĩa tiếng Việt *">
-<input id="a4" placeholder="Câu ví dụ (Thái)"><input id="a5" placeholder="Nghĩa câu ví dụ (Việt)">
-<div class="row"><button value="x">Hủy</button><button class="p" value="ok">Thêm</button></div></form></dialog>
-</div>
+:root{--f:'Noto Sans Thai Looped','Sarabun','TH Sarabun New',Tahoma,system-ui,sans-serif;--bg:#f6f5f1;--cd:#fff;--tx:#1d1d1b;--mu:#6b6a64;--bd:#e2e0d8;--ac:#b4412b;--as:#f7e3de;--ok:#2d7a4b;--no:#b3261e}
+@media(prefers-color-scheme:dark){:root{--bg:#151514;--cd:#201f1d;--tx:#eeece6;--mu:#a09e96;--bd:#35332f;--ac:#e8806a;--as:#3a2420;--ok:#6fcf97;--no:#f2877f}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 var(--f)}
+.th{font-family:var(--f)}.mu{color:var(--mu)}
+header{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--bd);background:var(--cd)}
+header h1{font-size:18px;margin:0 auto 0 0}
+button,select,input{font:inherit;color:inherit}
+button{background:var(--cd);border:1px solid var(--bd);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--ac)}button.pri,.tabs .on{background:var(--ac);border-color:var(--ac);color:#fff}
+button:disabled{cursor:default;opacity:.9}
+.wrap{display:grid;grid-template-columns:250px 1fr;gap:16px;padding:16px;max-width:1100px;margin:auto}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}}
+#side{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:8px;align-self:start}
+.di{display:flex;justify-content:space-between;gap:8px;padding:7px 10px;border-radius:8px;cursor:pointer}
+.di:hover{background:var(--as)}.di.on{background:var(--as);font-weight:600;color:var(--ac)}.di b{font-weight:400;color:var(--mu)}
+#main{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:16px;min-width:0}
+.hd h2{margin:0 0 8px;font-size:20px}.hd small{color:var(--mu);font-weight:400;font-size:14px}
+.bt{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}.tabs{display:flex;gap:6px;margin:12px 0;flex-wrap:wrap}
+.row{display:grid;grid-template-columns:1fr 1.4fr auto;gap:12px;padding:10px 0;border-top:1px solid var(--bd);align-items:start}
+@media(max-width:600px){.row{grid-template-columns:1fr auto}.row>:nth-child(2){grid-column:1/3;order:3}}
+.big{font-size:22px}.sm{font-size:15px}.ic{border:0;background:none;padding:2px 6px}
+.fc{min-height:260px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:8px;padding:24px;border:2px solid var(--bd);border-radius:16px;cursor:pointer;background:var(--bg)}
+.hu{font-size:52px;line-height:1.3}.hv{font-size:26px}.tag{background:var(--as);color:var(--ac);padding:2px 8px;border-radius:99px}
+.ctl{display:flex;gap:8px;justify-content:center;align-items:center;margin-top:12px;flex-wrap:wrap}
+.box{display:grid;gap:12px;max-width:380px}.box label{display:grid;gap:4px}select,input{padding:7px 9px;border:1px solid var(--bd);border-radius:8px;background:var(--cd)}
+.op{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 14px}.op.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 18%,transparent)}.op.no{border-color:var(--no);background:color-mix(in srgb,var(--no) 18%,transparent)}
+.chip{font-size:22px;min-width:44px}.chip.on{background:var(--as);border-color:var(--ac)}
+.sv{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin:12px 0}.sv>div{text-align:center}
+#cv{width:300px;max-width:100%;border:1px dashed var(--bd);border-radius:12px;touch-action:none;cursor:crosshair}
+.gl{fill:var(--ac);fill-opacity:0;stroke:var(--ac);stroke-width:2;stroke-dasharray:900;stroke-dashoffset:900;animation:dr 3.2s ease forwards}
+@keyframes dr{70%{stroke-dashoffset:0;fill-opacity:0}100%{stroke-dashoffset:0;fill-opacity:1}}
+dialog{border:1px solid var(--bd);border-radius:14px;background:var(--cd);color:var(--tx);width:min(440px,92vw)}dialog::backdrop{background:#0006}
+dialog label{display:grid;gap:3px;margin:8px 0}dialog .bt{justify-content:flex-end;margin-top:14px}
+#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 16px;border-radius:99px;opacity:0;pointer-events:none;transition:.2s}#toast.show{opacity:1}
+</style></head><body>
+<header><h1>🇹🇭 Học từ vựng tiếng Thái</h1>
+<label class="mu"><input type="checkbox" id="slow"> 🐢 Đọc chậm</label>
+<button onclick="upTo(null)">⬆ Tải tệp lên</button><button onclick="newTop()">➕ Tệp mới</button><button onclick="exp()">💾 Sao lưu</button>
+<input type="file" id="file" accept=".xlsx,.xls,.csv,.json" multiple hidden></header>
+<div class="wrap"><nav id="side"></nav><main id="main"></main></div>
+<dialog id="dlg"></dialog><div id="toast"></div>
 <script>
-const KEY='thaiVocabDB_v1',$=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9);
-const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-// ===== DỮ LIỆU MẪU: Bài 2 – Mua bán (thai|phiên âm|việt|ví dụ thái|ví dụ việt) =====
-const SEED=`ซื้อ||mua|ฉันซื้อเสื้อตัวใหม่|Tôi mua một cái áo mới
-ขาย||bán|ร้านนี้ขายผลไม้สด|Cửa hàng này bán trái cây tươi
-พ่อค้า||người bán hàng (nam)|พ่อค้าขายของที่ตลาด|Người bán hàng nam bán đồ ở chợ
-แม่ค้า||người bán hàng (nữ)|แม่ค้าร้านนี้ใจดีมาก|Cô bán hàng ở tiệm này rất tốt bụng
-ลูกค้า||khách hàng|ร้านนี้มีลูกค้าเยอะ|Cửa hàng này có nhiều khách
-สินค้า||hàng hóa|สินค้าที่นี่มีคุณภาพดี|Hàng hóa ở đây có chất lượng tốt
-ร้านค้า||cửa hàng|ร้านค้านี้เปิดกี่โมง?|Cửa hàng này mở lúc mấy giờ?
-ราคา||giá, giá cả|ราคาเสื้อตัวนี้เท่าไหร่?|Giá cái áo này bao nhiêu?
-เท่าไหร่||bao nhiêu|อันนี้ราคาเท่าไหร่ครับ?|Cái này giá bao nhiêu ạ?
-ขายยังไง||bán thế nào?|ทุเรียนขายยังไงคะ?|Sầu riêng bán thế nào ạ?
-เงิน||tiền|ฉันไม่มีเงินสด|Tôi không có tiền mặt
-แบงก์ย่อย / แบงก์ใหญ่|béng|tiền lẻ / tiền chẵn (tờ tiền lớn)|มีแบงก์ย่อยไหมคะ?|Có tiền lẻ không ạ?
-ทอน (เงิน)||trả lại tiền (thối tiền)|ไม่ต้องทอนครับ|Không cần thối tiền lại đâu ạ
-แลก (เงิน)||đổi tiền|ขอแลกเงิน 1000 บาทเป็นแบงก์ย่อย|Xin đổi 1000 bạt thành tiền lẻ
-ต่อ (ราคา)||mặc cả|เขาชอบต่อราคาเวลาซื้อของ|Anh ấy thích mặc cả khi mua đồ
-ลด (ราคา)||bớt, giảm (giá)|ลดราคาให้หน่อยได้ไหม?|Bớt giá cho tôi một chút được không?
-บาท||bạt Thái|เสื้อตัวนี้ 200 บาท|Cái áo này 200 bạt
-ถูก||rẻ|ตลาดนัดของถูกมาก|Chợ trời đồ rất rẻ
-แพง||đắt|โทรศัพท์รุ่นนี้แพงเกินไป|Mẫu điện thoại này đắt quá
-ลอง + V||thử|ขอลองใส่เสื้อตัวนี้ได้ไหม?|Cho tôi thử mặc cái áo này được không?
-ชิม||nếm (thử ăn)|ชิมผลไม้ก่อนซื้อ|Nếm thử trái cây trước khi mua
-กิโลกรัม (กิโล/โล)||cân/kg|ทุเรียน 1 กิโลกรัมราคาเท่าไหร่?|1 kg sầu riêng giá bao nhiêu?
-ขีด||lạng (100g)|หมู 2 ขีด|Thịt lợn 2 lạng
-อย่า||đừng|อย่าลืมรับเงินทอน|Đừng quên nhận tiền thối
-ขอ||xin, cho (yêu cầu)|ขอโทรศัพท์หน่อย|Cho tôi xin cái điện thoại
-ตลาด (สด)||chợ (tươi sống)|แม่ไปซื้อผักที่ตลาดสด|Mẹ đi mua rau ở chợ
-ตลาดนัด||chợ phiên, chợ trời|วันเสาร์เราไปเดินตลาดนัด|Thứ 7 chúng tôi đi dạo chợ trời
-ตลาดน้ำ||chợ nổi|ตลาดน้ำดำเนินสะดวกมีชื่อเสียง|Chợ nổi Damnoen Saduak rất nổi tiếng
-ห้างสรรพสินค้า|háng sặp p'aa^ xỉn kháa|trung tâm thương mại|พวกเราไปเดินห้างสรรพสินค้ากัน|Chúng tôi đi dạo trung tâm thương mại
-ซุปเปอร์มาร์เก็ต||siêu thị|ซื้อของในซุปเปอร์มาร์เก็ต|Mua đồ trong siêu thị
-เปลี่ยน||đổi (thay đổi)|ขอเปลี่ยนเสื้อตัวใหม่|Xin đổi một cái áo mới
-คืน||trả lại (hàng)|ของชำรุด คืนได้ไหม?|Hàng bị hỏng, trả lại được không?
-ขอดูหน่อย||cho xem một chút|ขอดูกระเป๋าใบนั้นหน่อยครับ|Cho tôi xem cái túi kia một chút
-หลวม||rộng|กางเกงตัวนี้หลวมเกินไป|Cái quần này rộng quá
-คับ/แน่น||chật, bó sát|รองเท้าคู่นี้คับ|Đôi giày này chật
-พอดี||vừa (kích cỡ)|เสื้อตัวนี้ใส่พอดีเลย|Cái áo này mặc vừa luôn
-เกินไป||quá mức|อันนี้ใหญ่เกินไป|Cái này to quá
-ไซส์/ขนาด|xảy|kích cỡ|คุณใส่ไซส์อะไรคะ?|Bạn mặc cỡ nào ạ?
-แบบ||kiểu dáng|มีแบบอื่นไหมคะ?|Có kiểu khác không ạ?
-ตัวอย่าง||hàng mẫu, ví dụ|นี่คือตัวอย่างสินค้า|Đây là hàng mẫu
-อื่น||khác|ขอดูสีอื่นหน่อย|Cho tôi xem màu khác một chút
-หมด||hết|สีดำหมดแล้วค่ะ|Màu đen hết rồi ạ
-เหลือ||còn (dư)|เหลือไซส์ M แค่ตัวเดียว|Chỉ còn đúng 1 cái cỡ M
-จ่ายเงิน||trả tiền|จ่ายเงินที่เคาน์เตอร์|Trả tiền ở quầy thu ngân
-คิดเงิน||tính tiền|ช่วยคิดเงินด้วยครับ|Làm ơn tính tiền giúp tôi
-เพิ่ม||thêm|ขอเพิ่มถุงอีก 1 ใบ|Xin thêm 1 cái túi nữa
-เลือก||chọn|เลือกสีที่ชอบได้เลย|Cứ chọn màu mà bạn thích
-ต้นทุน||vốn|ต้นทุนสินค้าสูงขึ้น|Vốn hàng hóa tăng lên
-ขาดทุน||lỗ|ขายแบบนี้ขาดทุนแน่นอน|Bán thế này chắc chắn lỗ
-เท่าทุน||hòa vốn|ขายเท่าทุนเพื่อระบายของ|Bán hòa vốn để xả hàng
-กำไร||lãi|ปีนี้ร้านทำกำไรได้ดี|Năm nay cửa hàng làm ăn có lãi
-คุณภาพ|khun ná p'aáp|chất lượng|สินค้ามีคุณภาพดี|Hàng hóa có chất lượng tốt
-เหรียญ||tiền xu|หยอดเหรียญในตู้|Bỏ tiền xu vào tủ
-เงินสด||tiền mặt|จ่ายด้วยเงินสดหรือบัตรคะ?|Thanh toán bằng tiền mặt hay thẻ ạ?
-ผ่อนจ่าย||trả góp|ซื้อมือถือแบบผ่อนจ่าย|Mua điện thoại theo hình thức trả góp
-บัตรเอทีเอ็ม|bặt ê thii êm|thẻ ATM|รูดบัตรเอทีเอ็ม|Quẹt thẻ ATM
-แถม||thêm, khuyến mãi (tặng kèm)|ซื้อ 1 แถม 1|Mua 1 tặng 1
-ประหยัด||tiết kiệm|การซื้อของตลาดนัดช่วยประหยัดเงิน|Mua đồ ở chợ giúp tiết kiệm tiền
-ฟุ่มเฟือย||lãng phí, phung phí|อย่าใช้จ่ายฟุ่มเฟือย|Đừng tiêu xài hoang phí
-เอา||lấy, mua (chọn mua)|เอาอันนี้ครับ|Tôi lấy cái này ạ`;
-const mkCard=(th,rom,vi,ex,exVi)=>({id:uid(),th:(th||'').trim(),rom:(rom||'').trim(),vi:(vi||'').trim(),ex:(ex||'').trim(),exVi:(exVi||'').trim(),known:false});
-const seedCards=()=>SEED.split('\n').map(l=>mkCard(...l.split('|')));
-let db;try{db=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!db||!db.sets||!db.sets.length){db={sets:[{id:uid(),name:'Bài 2 – Mua bán',cards:seedCards()}],cur:null}}
-if(!db.sets.find(s=>s.id===db.cur))db.cur=db.sets[0].id;
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(db))}catch(e){}};
-const cur=()=>db.sets.find(s=>s.id===db.cur);
-let mode='fc',fc={i:0,flip:false,dir:'th',only:false,order:null},qz=null,sk={id:null};
-// ===== ÂM THANH =====
-let voices=[];const lv=()=>voices=speechSynthesis.getVoices();if('speechSynthesis'in window){lv();speechSynthesis.onvoiceschanged=lv}
-function say(t,e){if(e)e.stopPropagation();if(!('speechSynthesis'in window))return alert('Trình duyệt không hỗ trợ phát âm.');
- speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).replace(/[\/+]/g,' '));u.lang='th-TH';u.rate=.85;
- const v=voices.find(v=>/^th/i.test(v.lang));if(v)u.voice=v;else if(!say.w){say.w=1;alert('Máy chưa có giọng đọc tiếng Thái. Hãy cài giọng Thai trong cài đặt Text-to-speech của thiết bị.')}
- speechSynthesis.speak(u)}
-const sp=t=>`<button onclick="say(this.dataset.t,event)" data-t="${esc(t)}" title="Nghe">🔊</button>`;
-// ===== ĐIỀU KHIỂN CHUNG =====
-const MODES=[['fc','🃏 Flashcard',vFc],['qz','✅ Trắc nghiệm',vQz],['sk','✍️ Nét chữ',vSk],['ls','📋 Danh sách',vLs]]; // thêm bài tập mới: thêm 1 dòng vào đây
-function render(){$('#sel').innerHTML=db.sets.map(s=>`<option value="${s.id}" ${s.id===db.cur?'selected':''}>${esc(s.name)} (${s.cards.length})</option>`).join('');
- $('#tabs').innerHTML=MODES.map(m=>`<button class="${m[0]===mode?'on':''}" onclick="mode='${m[0]}';render()">${m[1]}</button>`).join('');
- MODES.find(m=>m[0]===mode)[2]()}
-$('#sel').onchange=e=>{db.cur=e.target.value;fc.i=0;fc.order=null;qz=null;sk.id=null;save();render()};
-function ren(){const n=prompt('Tên mới cho mục:',cur().name);if(n){cur().name=n;save();render()}}
-function delSet(){if(db.sets.length<2)return alert('Phải giữ lại ít nhất 1 mục.');if(confirm('Xóa mục "'+cur().name+'" và toàn bộ từ trong đó?')){db.sets=db.sets.filter(s=>s!==cur());db.cur=db.sets[0].id;fc.order=null;qz=null;save();render()}}
-function addW(){$('#dlg').showModal()}
-$('#dlg').onclose=e=>{if($('#dlg').returnValue==='ok'){const v=[1,2,3,4,5].map(i=>$('#a'+i).value);if(v[0].trim()&&v[2].trim()){cur().cards.push(mkCard(...v));fc.order=null;qz=null;save();render()}else alert('Cần nhập ít nhất tiếng Thái và nghĩa Việt.')}
- [1,2,3,4,5].forEach(i=>$('#a'+i).value='')};
-function bak(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(db)],{type:'application/json'}));a.download='thai-vocab-backup.json';a.click()}
-$('#rst').onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!d.sets)throw 0;d.sets.forEach(s=>{s.id=uid();db.sets.push(s)});save();render();alert('Đã khôi phục '+d.sets.length+' mục.')}catch(x){alert('File sao lưu không hợp lệ.')}e.target.value=''};
-// ===== TẢI FILE → MỤC MỚI =====
-$('#upl').onchange=async e=>{const f=e.target.files[0];if(!f)return;e.target.value='';
- try{const wb=XLSX.read(await f.arrayBuffer(),{type:'array'});const rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{header:1,defval:''});
- const h=rows[0].map(x=>String(x).toLowerCase());let c={};h.forEach((t,i)=>{if(/ví dụ|example|câu/.test(t))c.ex=i;else if(/phiên|rom/.test(t))c.rom=i;else if(/thái|thai|ไทย/.test(t))c.th=i;else if(/việt|viet|nghĩa/.test(t))c.vi=i});
- if(c.th==null||c.vi==null){const o=/stt|#|no/.test(h[0])?1:0;c={th:o,rom:o+1,vi:o+2,ex:o+3}}
- const cards=[];rows.slice(1).forEach(r=>{const th=String(r[c.th]||'').trim(),vi=String(r[c.vi]||'').trim();if(!th||!vi)return;
-  let ex=String(r[c.ex]||'').trim(),exVi='';const m=ex.match(/^(.*?)\s*\((.*)\)\s*$/s);if(m){ex=m[1];exVi=m[2]}
-  cards.push(mkCard(th,r[c.rom],vi,ex,exVi))});
- if(!cards.length)return alert('Không đọc được từ nào. Cần cột: Tiếng Thái, Phiên âm, Tiếng Việt, Câu ví dụ.');
- const name=prompt('Tên mục mới:',f.name.replace(/\.\w+$/,''))||f.name;const s={id:uid(),name,cards};db.sets.push(s);db.cur=s.id;fc.order=null;qz=null;save();render()
- }catch(x){alert('Lỗi đọc file: '+x.message)}};
-// ===== FLASHCARD =====
-function vFc(){const all=cur().cards;let o=fc.order;if(!o||o.some(id=>!all.find(c=>c.id===id)))o=fc.order=all.map(c=>c.id);
- const pool=o.filter(id=>!fc.only||!all.find(c=>c.id===id).known);if(!pool.length){$('#main').innerHTML='<div class="card">🎉 Đã thuộc hết! <button onclick="fc.only=false;render()">Xem lại tất cả</button></div>';return}
- fc.i=(fc.i+pool.length)%pool.length;const c=all.find(x=>x.id===pool[fc.i]),T=fc.dir==='th';
- const front=T?`<div class="big th">${esc(c.th)}</div>`:`<div class="big" style="font-size:34px">${esc(c.vi)}</div>`;
- const back=T?`<div class="rom">${esc(c.rom)}</div><div style="font-size:26px">${esc(c.vi)}</div>`:`<div class="big th">${esc(c.th)}</div><div class="rom">${esc(c.rom)}</div>`;
- $('#main').innerHTML=`<div class="bar"><button onclick="fc.dir=fc.dir==='th'?'vi':'th';fc.flip=false;render()">🔁 ${T?'Thái → Việt':'Việt → Thái'}</button>
- <button onclick="fc.only=!fc.only;fc.i=0;render()">${fc.only?'✔ Chỉ từ chưa thuộc':'Chỉ từ chưa thuộc'}</button><button onclick="fc.order=all.map(c=>c.id).sort(()=>Math.random()-.5);fc.i=0;fc.flip=false;render()">🔀 Trộn</button>
- <span class="mu">${fc.i+1}/${pool.length} · đã thuộc ${all.filter(c=>c.known).length}/${all.length}</span></div>
- <div class="card fc" onclick="fc.flip=!fc.flip;render()">${front}${fc.flip?`<hr style="width:60%;border-color:var(--bd)">${back}
- ${c.ex?`<div class="th" style="font-size:19px">${esc(c.ex)} ${sp(c.ex)}</div><div class="mu">${esc(c.exVi)}</div>`:''}`:'<div class="mu">(chạm để lật)</div>'}${sp(c.th)}</div>
- <div class="row"><button onclick="fc.i--;fc.flip=false;render()">◀</button><button class="p" onclick="tk('${c.id}')">${c.known?'↩ Bỏ đánh dấu':'✔ Đã thuộc'}</button><button onclick="fc.i++;fc.flip=false;render()">▶</button>
- <button onclick="sk.id='${c.id}';mode='sk';render()">✍️ Nét chữ</button></div>`}
-const tk=id=>{const c=cur().cards.find(c=>c.id===id);c.known=!c.known;if(c.known)fc.i++;fc.flip=false;save();render()};
-document.onkeydown=e=>{if(mode!=='fc'||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(e.key==='ArrowRight'){fc.i++;fc.flip=false;render()}else if(e.key==='ArrowLeft'){fc.i--;fc.flip=false;render()}else if(e.key===' '){e.preventDefault();fc.flip=!fc.flip;render()}};
-// ===== TRẮC NGHIỆM =====
-function vQz(){const cs=cur().cards;if(cs.length<4){$('#main').innerHTML='<div class="card">Cần ít nhất 4 từ trong mục này.</div>';return}
- if(!qz||qz.setup){const s=qz||{type:'th2vi',n:Math.min(10,cs.length)};qz={setup:1,type:s.type,n:s.n};
-  $('#main').innerHTML=`<div class="card"><b>Kiểu câu hỏi</b><div class="row" style="justify-content:flex-start">${[['th2vi','Thái → Việt'],['vi2th','Việt → Thái'],['listen','🔊 Nghe → chọn nghĩa']].map(t=>`<button class="${qz.type===t[0]?'p':''}" onclick="qz.type='${t[0]}';render()">${t[1]}</button>`).join('')}</div>
-  <p>Số câu: <input type="number" min="4" max="${cs.length}" value="${qz.n}" style="width:80px" onchange="qz.n=Math.max(4,Math.min(${cs.length},+this.value||10))"></p><button class="p" onclick="qStart()">Bắt đầu</button></div>`;return}
- if(qz.i>=qz.q.length){$('#main').innerHTML=`<div class="card" style="text-align:center"><div class="big">${qz.sc}/${qz.q.length}</div><p>${qz.sc===qz.q.length?'Xuất sắc! 🎉':'Cố gắng thêm nhé!'}</p>${qz.wrong.length?`<div style="text-align:left"><b>Cần ôn lại:</b>${qz.wrong.map(c=>`<div class="th">${esc(c.th)} — ${esc(c.vi)}</div>`).join('')}</div>`:''}<div class="row"><button class="p" onclick="qStart()">Làm lại</button><button onclick="qz=null;render()">Đổi kiểu</button></div></div>`;return}
- const q=qz.q[qz.i],c=q.c,T=qz.type;const ask=T==='th2vi'?`<div class="big th">${esc(c.th)}</div>`:T==='vi2th'?`<div class="big" style="font-size:34px">${esc(c.vi)}</div>`:`<div class="big">🔊</div>`;
- $('#main').innerHTML=`<div class="card"><div class="mu">Câu ${qz.i+1}/${qz.q.length} · đúng ${qz.sc}</div>${ask}${T!=='vi2th'?`<div class="row">${sp(c.th)}</div>`:''}
- ${q.o.map((o,k)=>`<button class="opt ${T==='vi2th'?'th':''}" onclick="qAns(${k})">${esc(T==='vi2th'?o.th:o.vi)}</button>`).join('')}</div>`;
- if(T==='listen'&&!q.p){q.p=1;say(c.th)}}
-function qStart(){const cs=cur().cards,n=qz.n,t=qz.type;const pick=[...cs].sort(()=>Math.random()-.5).slice(0,n);
- qz={type:t,n,i:0,sc:0,wrong:[],q:pick.map(c=>({c,o:[c,...cs.filter(x=>x!==c).sort(()=>Math.random()-.5).slice(0,3)].sort(()=>Math.random()-.5)}))};render()}
-function qAns(k){const q=qz.q[qz.i],T=qz.type,btns=document.querySelectorAll('.opt');if(q.done)return;q.done=1;
- const ok=q.o[k]===q.c;if(ok)qz.sc++;else qz.wrong.push(q.c);btns.forEach((b,j)=>{if(q.o[j]===q.c)b.classList.add('ok');else if(j===k)b.classList.add('no');b.disabled=true});
- if(T!=='vi2th')say(q.c.th);setTimeout(()=>{qz.i++;render()},ok?900:1800)}
-// ===== NÉT CHỮ =====
-function vSk(){const cs=cur().cards;if(!sk.id||!cs.find(c=>c.id===sk.id))sk.id=cs[0]?.id;const c=cs.find(x=>x.id===sk.id);if(!c){$('#main').innerHTML='<div class="card">Mục trống.</div>';return}
- const chars=Array.from(c.th.replace(/[\s\/+()A-Za-z0-9]/g,''));
- $('#main').innerHTML=`<div class="bar"><select onchange="sk.id=this.value;render()">${cs.map(x=>`<option value="${x.id}" ${x.id===c.id?'selected':''}>${esc(x.th)} — ${esc(x.vi)}</option>`).join('')}</select>${sp(c.th)}<button onclick="render()">▶ Viết lại</button></div>
- <div class="card"><svg viewBox="0 0 700 150" width="100%"><text x="350" y="105" text-anchor="middle" font-size="96" font-family="Sarabun,sans-serif">${esc(c.th)}</text></svg>
- <div style="text-align:center">${chars.map(ch=>`<span class="chip th" title="U+${ch.codePointAt(0).toString(16).toUpperCase()}" onclick="say('${ch}')">${esc(ch)}</span>`).join('')}</div>
- <p class="mu" style="text-align:center">${esc(c.rom)} · ${esc(c.vi)} — chạm từng ký tự để nghe. Hoạt hình mô phỏng đường viền chữ, không phải thứ tự nét chuẩn.</p></div>
- <div class="card"><b>Tập viết theo</b> <button onclick="clr()">🧽 Xóa</button><canvas id="cv"></canvas></div>`;
- const cv=$('#cv'),r=cv.getBoundingClientRect();cv.width=r.width*2;cv.height=440;window.clr=()=>{const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);x.fillStyle=getComputedStyle(document.body).color;x.globalAlpha=.13;x.font='190px Sarabun,sans-serif';x.textAlign='center';x.fillText(c.th,cv.width/2,290,cv.width-40);x.globalAlpha=1};clr();
- const x=cv.getContext('2d');let d=0;const P=e=>{const b=cv.getBoundingClientRect();return[(e.clientX-b.left)*cv.width/b.width,(e.clientY-b.top)*cv.height/b.height]};
- x.lineWidth=9;x.lineCap=x.lineJoin='round';
- cv.onpointerdown=e=>{d=1;cv.setPointerCapture(e.pointerId);x.strokeStyle=getComputedStyle(document.documentElement).getPropertyValue('--ac');x.beginPath();x.moveTo(...P(e))};
- cv.onpointermove=e=>{if(d){x.lineTo(...P(e));x.stroke()}};cv.onpointerup=()=>d=0}
-// ===== DANH SÁCH =====
-function vLs(){$('#main').innerHTML=`<div class="card"><table>${cur().cards.map((c,i)=>`<tr><td class="mu">${i+1}</td><td class="th" style="font-size:20px">${esc(c.th)} ${sp(c.th)}<div class="rom" style="font-size:13px">${esc(c.rom)}</div></td><td>${esc(c.vi)}${c.ex?`<div class="mu th" style="font-size:14px">${esc(c.ex)} — ${esc(c.exVi)}</div>`:''}</td><td><button onclick="dc('${c.id}')">✕</button></td></tr>`).join('')}</table></div>`}
-function dc(id){if(confirm('Xóa từ này?')){cur().cards=cur().cards.filter(c=>c.id!==id);fc.order=null;qz=null;save();render()}}
-render();
+const SEED=[{"id":"seed-thai-bai2-mua-ban","name":"Thái – Bài 2: Mua bán","sheets":[["Sheet1",[["","","","",""],["STT","Tiếng Thái","Phiên âm","Tiếng Việt","Câu ví dụ (Thái - Việt)"],["1","ซื้อ","","mua","ฉันซื้อเสื้อตัวใหม่ (Tôi mua một cái áo mới)"],["2","ขาย","","bán","ร้านนี้ขายผลไม้สด (Cửa hàng này bán trái cây tươi)"],["3","พ่อค้า","","người bán hàng (nam)","พ่อค้าขายของที่ตลาด (Người bán hàng nam bán đồ ở chợ)"],["4","แม่ค้า","","người bán hàng (nữ)","แม่ค้าร้านนี้ใจดีมาก (Cô bán hàng ở tiệm này rất tốt bụng)"],["5","ลูกค้า","","khách hàng","ร้านนี้มีลูกค้าเยอะ (Cửa hàng này có nhiều khách)"],["6","สินค้า","","hàng hóa","สินค้าที่นี่มีคุณภาพดี (Hàng hóa ở đây có chất lượng tốt)"],["7","ร้านค้า","","cửa hàng","ร้านค้านี้เปิดกี่โมง? (Cửa hàng này mở lúc mấy giờ?)"],["8","ราคา","","giá, giá cả","ราคาเสื้อตัวนี้เท่าไหร่? (Giá cái áo này bao nhiêu?)"],["9","เท่าไหร่","","bao nhiêu","อันนี้ราคาเท่าไหร่ครับ? (Cái này giá bao nhiêu ạ?)"],["10","ขายยังไง","","bán thế nào?","ทุเรียนขายยังไงคะ? (Sầu riêng bán thế nào ạ?)"],["11","เงิน","","tiền","ฉันไม่มีเงินสด (Tôi không có tiền mặt)"],["12","แบงก์ย่อย / แบงก์ใหญ่","béng","tiền lẻ / tiền chẵn (tờ tiền lớn)","มีแบงก์ย่อยไหมคะ? (Có tiền lẻ không ạ?)"],["13","ทอน (เงิน)","","trả lại tiền (thối tiền)","ไม่ต้องทอนครับ (Không cần thối tiền lại đâu ạ)"],["14","แลก (เงิน)","","đổi tiền","ขอแลกเงิน 1000 บาทเป็นแบงก์ย่อย (Xin đổi 1000 bath thành tiền lẻ)"],["15","ต่อ (ราคา)","","mặc cả","เขาชอบต่อราคาเวลาซื้อของ (Anh ấy thích mặc cả khi mua đồ)"],["16","ลด(ราคา)","","bớt, giảm (giá)","ลดราคาให้หน่อยได้ไหม? (Bớt giá cho tôi một chút được không?)"],["17","บาท","","bạt Thái","เสื้อตัวนี้ 200 บาท (Cái áo này 200 bạt)"],["18","ถูก","","rẻ","ตลาดนัดของถูกมาก (Chợ trời đồ rất rẻ)"],["19","แพง","","đắt","โทรศัพท์รุ่นนี้แพงเกินไป (Mẫu điện thoại này đắt quá)"],["20","ลอง + V","","thử","ขอลองใส่เสื้อตัวนี้ได้ไหม? (Cho tôi thử mặc cái áo này được không?)"],["21","ชิม","","nếm (thử ăn)","ชิมผลไม้ก่อนซื้อ (Nếm thử trái cây trước khi mua)"],["22","กิโลกรัม (กิโล/โล)","","cân/kg","ทุเรียน 1 กิโลกรัมราคาเท่าไหร่? (1 kg sầu riêng giá bao nhiêu?)"],["23","ขีด","","lạng (100g)","หมู 2 ขีด (Thịt lợn 2 lạng)"],["24","อย่า","","đừng","อย่าลืมรับเงินทอน (Đừng quên nhận tiền thối)"],["25","ขอ","","xin, cho (yêu cầu)","ขอโทรศัพท์หน่อย (Cho tôi xin cái điện thoại)"],["26","ตลาด (สด)","","chợ (tươi sống)","แม่ไปซื้อผักที่ตลาดสด (Mẹ đi mua rau ở chợ)"],["27","ตลาดนัด","","chợ phiên, chợ trời","วันเสาร์เราไปเดินตลาดนัด (Thứ 7 chúng tôi đi dạo chợ trời)"],["28","ตลาดน้ำ","","chợ nổi","ตลาดน้ำดำเนินสะดวกมีชื่อเสียง (Chợ nổi Damnoen Saduak rất nổi tiếng)"],["29","ห้างสรรพสินค้า","háng sặp p'aa^ xỉn kháa","trung tâm thương mại","พวกเราไปเดินห้างสรรพสินค้ากัน (Chúng tôi đi dạo trung tâm thương mại)"],["30","ซุปเปอร์มาร์เก็ต","","siêu thị","ซื้อของในซุปเปอร์มาร์เก็ต (Mua đồ trong siêu thị)"],["31","เปลี่ยน","","đổi (thay đổi)","ขอเปลี่ยนเสื้อตัวใหม่ (Xin đổi một cái áo mới)"],["32","คืน","","trả lại (hàng)","ของชำรุด คืนได้ไหม? (Hàng bị hỏng, trả lại được không?)"],["33","ขอดูหน่อย","","cho xem một chút","ขอดูกระเป๋าใบนั้นหน่อยครับ (Cho tôi xem cái túi kia một chút)"],["34","หลวม","","rộng","กางเกงตัวนี้หลวมเกินไป (Cái quần này rộng quá)"],["35","คับ/แน่น","","chật, bó sát","รองเท้าคู่นี้คับ (Đôi giày này chật)"],["36","พอดี","","vừa (kích cỡ)","เสื้อตัวนี้ใส่พอดีเลย (Cái áo này mặc vừa luôn)"],["37","เกินไป","","quá mức","อันนี้ใหญ่เกินไป (Cái này to quá)"],["38","ไซส์/ขนาด","xảy","kích cỡ","คุณใส่ไซส์อะไรคะ? (Bạn mặc cỡ nào ạ?)"],["39","แบบ","","kiểu dáng","มีแบบอื่นไหมคะ? (Có kiểu khác không ạ?)"],["40","ตัวอย่าง","","hàng mẫu, ví dụ","นี่คือตัวอย่างสินค้า (Đây là hàng mẫu)"],["41","อื่น","","khác","ขอดูสีอื่นหน่อย (Cho tôi xem màu khác một chút)"],["42","หมด","","hết","สีดำหมดแล้วค่ะ (Màu đen hết rồi ạ)"],["43","เหลือ","","còn (dư)","เหลือไซส์ M แค่ตัวเดียว (Chỉ còn đúng 1 cái cỡ M)"],["44","จ่ายเงิน","","trả tiền","จ่ายเงินที่เคาน์เตอร์ (Trả tiền ở quầy thu ngân)"],["45","คิดเงิน","","tính tiền","ช่วยคิดเงินด้วยครับ (Làm ơn tính tiền giúp tôi)"],["46","เพิ่ม","","thêm","ขอเพิ่มถุงอีก 1 ใบ (Xin thêm 1 cái túi nữa)"],["47","เลือก","","chọn","เลือกสีที่ชอบได้เลย (Cứ chọn màu mà bạn thích)"],["48","ต้นทุน","","vốn","ต้นทุนสินค้าสูงขึ้น (Vốn hàng hóa tăng lên)"],["49","ขาดทุน","","lỗ","ขายแบบนี้ขาดทุนแน่นอน (Bán thế này chắc chắn lỗ)"],["50","เท่าทุน","","hòa vốn","ขายเท่าทุนเพื่อระบายของ (Bán hòa vốn để xả hàng)"],["51","กำไร","","lãi","ปีนี้ร้านทำกำไรได้ดี (Năm nay cửa hàng làm ăn có lãi)"],["52","คุณภาพ","khun ná p'aáp","chất lượng","สินค้ามีคุณภาพดี (Hàng hóa có chất lượng tốt)"],["53","เหรียญ","","tiền xu","หยอดเหรียญในตู้ (Bỏ tiền xu vào tủ)"],["54","เงินสด","","tiền mặt","จ่ายด้วยเงินสดหรือบัตรคะ? (Thanh toán bằng tiền mặt hay thẻ ạ?)"],["55","ผ่อนจ่าย","","trả góp","ซื้อมือถือแบบผ่อนจ่าย (Mua điện thoại theo hình thức trả góp)"],["56","บัตรเอทีเอ็ม","bặt ê thii êm","thẻ ATM","รูดบัตรเอทีเอ็ม (Quẹt thẻ ATM)"],["57","แถม","","thêm, khuyến mãi (tặng kèm)","ซื้อ 1 แถม 1 (Mua 1 tặng 1)"],["58","ประหยัด","","tiết kiệm","การซื้อของตลาดนัดช่วยประหยัดเงิน (Mua đồ ở chợ giúp tiết kiệm tiền)"],["59","ฟุ่มเฟือย","","lãng phí, phung phí","อย่าใช้จ่ายฟุ่มเฟือย (Đừng tiêu xài hoang phí)"],["60","เอา","","lấy, mua (chọn mua)","เอาอันนี้ครับ (Tôi lấy cái này ạ)"],["","","","",""],["STT","Chủ đề / Ngữ cảnh","Câu hỏi (Tiếng Thái - Tiếng Việt)","Câu trả lời mẫu (Tiếng Thái - Tiếng Việt)",""],["1","Hỏi giá & Số lượng","ทุเรียนขายยังไงคะ/ครับ?","ลูกละ 35 บาท สามลูก 100 ค่ะ / กิโลละ 30 บาทค่ะ",""],["","","(Sầu riêng bán thế nào ạ?)","(35 bạt/quả, 3 quả 100 bạt / 30 bạt/kg)",""],["2","Hỏi giá","เสื้อตัวนี้ราคาเท่าไหร่ / ขายเท่าไหร่ ครับ/คะ?","เสื้อตัวนั้น 300 บาทค่ะ",""],["","","(Cái áo này giá bao nhiêu / bán bao nhiêu ạ?)","(Cái áo kia 300 bạt ạ)",""],["3","Mặc cả (Trả giá)","ลดหน่อยได้ไหมคะ/ครับ?","ลดไม่ได้ค่ะ / ลดได้ 10 บาทค่ะ",""],["","","(Bớt một chút được không ạ?)","(Không bớt được ạ / Bớt được 10 bạt ạ)",""],["4","Mặc cả (Trả giá sâu hơn)","ลดอีกได้ไหมคะ (ลดอีกนิดนึง) / ลดได้เท่าไรคะ / 200 บาทได้ไหมคะ?","(Thường người bán sẽ đưa ra mức giá cuối cùng hoặc từ chối khéo)",""],["","","(Bớt thêm được không ạ (bớt chút nữa) / Bớt được bao nhiêu ạ? / 200 bạt được không ạ?)","",""],["5","Xin thử hàng","ลองชิมได้ไหมคะ / ลองใส่ได้ไหมครับ?","ลองชิมได้ครับ / ลองใส่ไม่ได้ค่ะ",""],["","","(Cho tôi nếm thử được không ạ? / Cho tôi thử mặc được không ạ?)","(Được nếm thử ạ / Không được thử mặc ạ)",""],["6","Hỏi nơi mua","คุณมักจะซื้อของที่ไหนคะ/ครับ?","ดิฉันมักจะซื้อของในซุปเปอร์มาร์เก็ต",""],["","","(Bạn thường hay mua đồ ở đâu ạ?)","(Tôi thường mua đồ ở siêu thị)",""],["7","Đổi trả hàng (Lỗi/Hỏng)","ใส่ไม่ได้ เปลี่ยนได้ไหมคะ/ครับ? / ใช้ไม่ได้ คืนได้ไหมคะ/ครับ?","เปลี่ยนได้ค่ะ / คืนไม่ได้ครับ",""],["","","(Mặc không được, đổi được không ạ? / Dùng không được, trả lại được không ạ?)","(Được đổi ạ / Không được trả lại ạ)",""],["8","Đổi sang mẫu/size khác","ขอเปลี่ยนเป็นไซส์อื่นได้ไหมครับ / สีอื่นได้ไหมคะ?","เปลี่ยนได้ค่ะ / เปลี่ยนไม่ได้ค่ะ",""],["","","(Cho tôi đổi sang size khác được không ạ? / Màu khác được không ạ?)","(Được đổi ạ / Không được đổi ạ)",""],["9","Hỏi mẫu mã, kích cỡ","กระโปรงมีไซส์อะไรบ้างคะ/ครับ / สีอะไรบ้างคะ/ครับ?","กระโปรงมีไซส์ S, M, L ค่ะ มีสีน้ำตาลและสีขาวค่ะ",""],["","","(Chân váy có những size gì ạ? / Có những màu gì ạ?)","(Chân váy có size S, M, L. Có màu nâu và màu trắng ạ)",""],["10","Hỏi mẫu mã, kích cỡ","แบบนี้มีสีอื่นไหมคะ/ครับ? / สีนี้มีไซส์อื่นไหมคะ/ครับ?","(Trả lời có/không hoặc đưa ra lựa chọn khác)",""],["","","(Kiểu này có màu khác không ạ? / Màu này có size khác không ạ?)","",""],["11","Thanh toán","คุณจ่ายเป็นเงินสด หรือใช้บัตรเอทีเอ็มคะ/ครับ?","ดิฉันจ่ายเป็นเงินสดค่ะ / ใช้บัตรค่ะ",""],["","","(Bạn trả tiền mặt hay dùng thẻ ATM ạ?)","(Tôi trả tiền mặt ạ / Dùng thẻ ạ)",""],["","","","",""],["","","","",""],["ร้านนี้ขายสินค้าหลายชนิด (Cửa hàng này bán nhiều loại hàng hóa)","","","",""],["ของคุณภาพดีราคามักจะแพง (Hàng chất lượng tốt giá thường sẽ đắt)","","","",""],["เราต้องรู้จักประหยัดเงิน (Chúng ta phải biết tiết kiệm tiền)","","","",""],["ถ้าคุณซื้อวันนี้จะได้ของแถมด้วย (Nếu bạn mua hôm nay sẽ được tặng quà kèm theo)","","","",""]]]]}];
+const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,9),shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const GN={v:'Từ vựng',d:'Hội thoại mẫu',x:'Câu mở rộng'};
+let lib,sel=null,tab='list',inc=true,cur=[],fc=null,qz=null,st=null,upP=null;
+function save(){try{localStorage.setItem('thaiLib1',JSON.stringify(lib))}catch(e){}}
+function load(){try{lib=JSON.parse(localStorage.getItem('thaiLib1'))}catch(e){}
+ lib=lib||{decks:[],seen:[]};
+ SEED.forEach(s=>{if(!lib.seen.includes(s.id)){lib.seen.push(s.id);build(s.name,s.sheets,null,s.id)}});save()}
+function toast(m){const t=$('#toast');t.textContent=m;t.className='show';clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',3200)}
+const deck=id=>lib.decks.find(d=>d.id===id),kids=id=>lib.decks.filter(d=>d.parent===id);
+function allW(id,deep){let w=deck(id).words.slice();if(deep)kids(id).forEach(c=>w=w.concat(allW(c.id,1)));return w}
+/* ---------- đọc dữ liệu từ bảng ---------- */
+function parseRows(rows){const T=/[\u0E00-\u0E7F]/,sp=s=>{const m=s.match(/^(.*?)\s*\(([^()]*)\)\s*$/s);return m?[m[1],m[2]]:[s,'']},un=s=>s.replace(/^\(|\)$/g,'').trim();
+ let m=null,out=[],last=null;
+ for(const r of rows){const c=r.map(v=>String(v??'').trim()),h=c.map(v=>v.toLowerCase()),fi=re=>h.findIndex(v=>re.test(v));
+  if(fi(/câu hỏi/)>=0){m={k:'d',q:fi(/câu hỏi/),a:fi(/trả lời/),n:fi(/chủ đề/)};continue}
+  if(fi(/tiếng thái/)>=0&&fi(/tiếng việt|nghĩa/)>=0){m={k:'v',th:fi(/tiếng thái/),rom:fi(/phiên/),vi:fi(/tiếng việt|nghĩa/),ex:fi(/ví dụ/)};continue}
+  if(!m)continue;
+  if(m.k=='v'){if(!T.test(c[m.th]))continue;const[e,v]=m.ex>=0?sp(c[m.ex]):['',''];out.push({id:uid(),grp:'v',th:c[m.th],rom:m.rom>=0?c[m.rom]:'',vi:c[m.vi],ex:e,exv:v,note:''})}
+  else if(T.test(c[0])&&!c[m.q]){const[a,b]=sp(c[0]);out.push({id:uid(),grp:'x',th:a,rom:'',vi:b,ex:'',exv:'',note:''})}
+  else if(T.test(c[m.q])){const a=c[m.a]||'',t=T.test(a);last={id:uid(),grp:'d',th:c[m.q],rom:'',vi:'',ex:t?a:'',exv:t?'':un(a),note:c[m.n]||''};out.push(last)}
+  else if(last&&c[m.q].startsWith('(')){last.vi=un(c[m.q]);if(c[m.a])last.exv=un(c[m.a]);last=null}}
+ return out}
+function build(name,sheets,p,id){const G=new Map();
+ sheets.forEach(([sn,rows])=>parseRows(rows).forEach(w=>{const g=(sheets.length>1?sn+' · ':'')+GN[w.grp];delete w.grp;if(!G.has(g))G.set(g,[]);G.get(g).push(w)}));
+ if(!G.size)return null;const d={id:id||uid(),name,parent:p,words:[]};lib.decks.push(d);
+ if(G.size==1)d.words=[...G.values()][0];else G.forEach((ws,g)=>lib.decks.push({id:uid(),name:g,parent:d.id,words:ws}));return d}
+/* ---------- tệp / mục ---------- */
+function upTo(p){upP=p;$('#file').click()}
+$('#file').onchange=async e=>{for(const f of e.target.files)await onFile(f,upP);e.target.value=''};
+async function onFile(f,p){try{
+ if(/\.json$/i.test(f.name)){impJson(JSON.parse(await f.text()),p);return}
+ if(!window.XLSX)return toast('Cần internet để tải thư viện đọc xlsx/csv. Hoặc dùng tệp .json');
+ const wb=/\.csv$/i.test(f.name)?XLSX.read(await f.text(),{type:'string'}):XLSX.read(await f.arrayBuffer(),{type:'array'});
+ const d=build(f.name.replace(/\.\w+$/,'').replace(/_/g,' '),wb.SheetNames.map(n=>[n,XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,defval:''})]),p);
+ if(!d)return toast('Không thấy từ nào. Cần cột "Tiếng Thái" và "Tiếng Việt"');
+ save();pick(d.id);toast('Đã thêm "'+d.name+'" thành mục riêng')}catch(e){toast('Lỗi đọc tệp: '+e.message)}}
+function impJson(j,p){const a=Array.isArray(j)?j:j.decks,M={};a.forEach(d=>M[d.id]=uid());
+ a.forEach(d=>lib.decks.push({...d,id:M[d.id],parent:d.parent&&M[d.parent]?M[d.parent]:p,words:d.words.map(w=>({...w,id:uid()}))}));save();main();toast('Đã nhập '+a.length+' mục')}
+function exp(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({decks:lib.decks},null,1)],{type:'application/json'}));a.download='thai-vocab-backup.json';a.click()}
+function ask(t,f,cb){const d=$('#dlg');d.innerHTML=`<form method="dialog"><h3>${t}</h3>${f.map(([k,l,v])=>`<label>${l}<input name="${k}" value="${esc(v)}" autocomplete="off"></label>`).join('')}<div class="bt"><button type="button" onclick="$('#dlg').close()">Hủy</button><button value="ok" class="pri">Lưu</button></div></form>`;
+ d.onclose=()=>{if(d.returnValue=='ok'){const o={};f.forEach(([k])=>o[k]=d.querySelector(`[name=${k}]`).value.trim());cb(o)}};d.returnValue='';d.showModal()}
+function newTop(){ask('Tạo tệp mới',[['n','Tên tệp','']],v=>{if(!v.n)return;const d={id:uid(),name:v.n,parent:null,words:[]};lib.decks.push(d);save();pick(d.id)})}
+function addSub(){ask('Thêm tệp con vào "'+deck(sel).name+'"',[['n','Tên tệp con','']],v=>{if(!v.n)return;const d={id:uid(),name:v.n,parent:sel,words:[]};lib.decks.push(d);save();pick(d.id)})}
+function ren(){ask('Đổi tên',[['n','Tên mới',deck(sel).name]],v=>{if(v.n){deck(sel).name=v.n;save();main()}})}
+function delD(){const ids=[],g=i=>{ids.push(i);kids(i).forEach(c=>g(c.id))};g(sel);if(!confirm(`Xóa "${deck(sel).name}" cùng ${ids.length-1} mục con?`))return;lib.decks=lib.decks.filter(d=>!ids.includes(d.id));sel=null;save();main()}
+const F=[['th','Tiếng Thái'],['rom','Phiên âm'],['vi','Tiếng Việt'],['ex','Câu ví dụ (Thái)'],['exv','Nghĩa câu ví dụ (Việt)']];
+const owner=id=>lib.decks.find(d=>d.words.some(w=>w.id==id));
+function addW(){ask('Thêm từ vào "'+deck(sel).name+'"',F.map(([k,l])=>[k,l,'']),v=>{if(!v.th)return toast('Cần nhập tiếng Thái');deck(sel).words.push({id:uid(),...v,note:''});save();main()})}
+function edW(id){const w=owner(id).words.find(w=>w.id==id);ask('Sửa từ',F.map(([k,l])=>[k,l,w[k]||'']),v=>{Object.assign(w,v);save();main()})}
+function rmW(id){if(!confirm('Xóa từ này?'))return;const d=owner(id);d.words=d.words.filter(w=>w.id!=id);save();main()}
+/* ---------- âm thanh ---------- */
+let voice,au;const pv=()=>{voice=speechSynthesis.getVoices().find(v=>/^th/i.test(v.lang))};
+if('speechSynthesis' in window){pv();speechSynthesis.onvoiceschanged=pv}
+function say(t){t=String(t).replace(/\//g,' ');const slow=$('#slow').checked;
+ if(voice){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='th-TH';u.voice=voice;u.rate=slow?.6:.9;speechSynthesis.speak(u)}
+ else{au&&au.pause();au=new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=th&q='+encodeURIComponent(t));au.playbackRate=slow?.7:1;au.play().catch(()=>toast('Máy chưa có giọng Thái và không tải được audio online'))}}
+/* ---------- giao diện chính ---------- */
+function pick(id){sel=id;fc=qz=st=null;main()}
+function side(){const r=(p,l)=>kids(p).map(d=>`<div class="di ${d.id==sel?'on':''}" style="padding-left:${10+l*16}px" onclick="pick('${d.id}')"><span>${l?'↳ ':'📁 '}${esc(d.name)}</span><b>${allW(d.id,1).length}</b></div>`+r(d.id,l+1)).join('');
+ $('#side').innerHTML=r(null,0)||'<p class="mu">Chưa có mục nào. Hãy tải tệp lên.</p>'}
+function main(){side();if(!deck(sel))sel=null;const d=deck(sel);
+ if(!d){$('#main').innerHTML='<p class="mu">Chọn một mục bên trái hoặc tải tệp lên để bắt đầu.</p>';return}
+ cur=allW(sel,inc);
+ $('#main').innerHTML=`<div class="hd"><h2>${esc(d.name)} <small>${cur.length} mục</small></h2><div class="bt"><button onclick="addW()">➕ Thêm từ</button><button onclick="addSub()">📁 Thêm tệp con</button><button onclick="upTo(sel)">⬆ Tải tệp vào mục này</button><button onclick="ren()">✏️ Đổi tên</button><button onclick="delD()">🗑 Xóa</button></div>
+ <label class="mu"><input type="checkbox" ${inc?'checked':''} onchange="inc=this.checked;fc=qz=st=null;main()"> Gồm cả các mục con</label></div>
+ <div class="tabs">${[['list','📋 Danh sách'],['fc','🃏 Flashcard'],['qz','✅ Trắc nghiệm'],['st','✍️ Nét chữ']].map(([k,l])=>`<button class="${tab==k?'on':''}" onclick="tab='${k}';main()">${l}</button>`).join('')}</div><div id="body"></div>`;
+ ({list:vList,fc:vFc,qz:vQz,st:vSt})[tab]()}
+function vList(){$('#body').innerHTML=cur.length?cur.map((w,i)=>`<div class="row"><div><div class="th big">${esc(w.th)} <button class="ic" onclick="say(cur[${i}].th)">🔊</button></div><div class="mu">${esc(w.rom)}</div></div><div><div>${esc(w.vi)}</div>${w.ex?`<div class="th sm">${esc(w.ex)} <button class="ic" onclick="say(cur[${i}].ex)">🔊</button></div><div class="mu">${esc(w.exv)}</div>`:''}${w.note?`<small class="tag">${esc(w.note)}</small>`:''}</div><div><button class="ic" onclick="edW('${w.id}')">✏️</button><button class="ic" onclick="rmW('${w.id}')">🗑</button></div></div>`).join(''):'<p class="mu">Mục này chưa có từ. Bấm "Thêm từ" hoặc tải tệp lên.</p>'}
+/* Flashcard */
+function vFc(){if(!cur.length)return $('#body').innerHTML='<p class="mu">Chưa có từ để học.</p>';
+ if(!fc||fc.n!=cur.length)fc={i:0,f:0,o:cur.map((_,i)=>i),dir:'th',n:cur.length};
+ const w=cur[fc.o[fc.i]],t=fc.dir=='th',TH=`<div class="th hu">${esc(w.th)}</div>`,VI=`<div class="hv">${esc(w.vi)}</div>`;
+ const back=(t?VI:TH)+(w.rom?`<div class="mu">${esc(w.rom)}</div>`:'')+(w.ex?`<hr style="width:60%"><div class="th">${esc(w.ex)}</div><div class="mu">${esc(w.exv)}</div>`:'')+(w.note?`<small class="tag">${esc(w.note)}</small>`:'');
+ $('#body').innerHTML=`<div class="fc" onclick="fc.f^=1;vFc()">${fc.f?back:(t?TH:VI)}<small class="mu">${fc.f?'':'Bấm để lật thẻ'}</small></div><div class="ctl"><button onclick="fcGo(-1)">◀ Trước</button><span class="mu">${fc.i+1} / ${fc.n}</span><button onclick="fcGo(1)">Sau ▶</button></div><div class="ctl"><button onclick="say(cur[fc.o[fc.i]].th)">🔊 Nghe</button><button onclick="fc.o=shuf(fc.o);fc.i=fc.f=0;vFc()">🔀 Xáo</button><button onclick="fc.dir=fc.dir=='th'?'vi':'th';fc.f=0;vFc()">⇄ Mặt trước: ${t?'Thái':'Việt'}</button></div>`}
+function fcGo(d){fc.i=(fc.i+d+fc.n)%fc.n;fc.f=0;vFc()}
+document.onkeydown=e=>{if(tab!='fc'||!fc||/INPUT|SELECT/.test(e.target.tagName)||$('#dlg').open)return;if(e.key=='ArrowRight')fcGo(1);else if(e.key=='ArrowLeft')fcGo(-1);else if(e.key==' '){e.preventDefault();fc.f^=1;vFc()}}
+/* Trắc nghiệm */
+function mkQ(w,m,p){const k=m=='vt'?'th':'vi',a=w[k],o=[a];shuf(p).forEach(x=>{if(o.length<4&&x[k]&&!o.includes(x[k]))o.push(x[k])});return{w,k,a,o:shuf(o)}}
+function qStart(only){const m=$('#qm')?.value||qz.m,n=+($('#qc')?.value??0),p=cur.filter(w=>w.vi),l=only||shuf(p).slice(0,n||p.length);qz={st:'run',m,l:l.map(w=>mkQ(w,m,p)),i:0,s:0,sel:null,bad:[]};vQz()}
+function qA(j){const q=qz.l[qz.i];if(qz.sel!=null)return;qz.sel=q.o[j];if(qz.sel==q.a)qz.s++;else qz.bad.push(q.w);if(qz.m=='vt')say(q.w.th);vQz()}
+function qNext(){qz.i++;qz.sel=null;if(qz.i>=qz.l.length)qz.st='end';vQz()}
+function vQz(){const B=$('#body');if(cur.filter(w=>w.vi).length<2)return B.innerHTML='<p class="mu">Cần ít nhất 2 từ có nghĩa tiếng Việt.</p>';
+ if(!qz||qz.st=='set'){qz={st:'set'};return B.innerHTML=`<div class="box"><label>Kiểu câu hỏi<select id="qm"><option value="tv">Thái → chọn nghĩa Việt</option><option value="vt">Việt → chọn từ Thái</option><option value="au">Nghe → chọn nghĩa Việt</option></select></label><label>Số câu<select id="qc"><option>10</option><option>20</option><option value="0">Tất cả</option></select></label><button class="pri" onclick="qStart()">Bắt đầu</button></div>`}
+ if(qz.st=='end')return B.innerHTML=`<div class="box"><h3>Kết quả: ${qz.s} / ${qz.l.length}</h3>${qz.bad.length?'<div>Cần ôn lại:</div>'+qz.bad.map(w=>`<div><span class="th">${esc(w.th)}</span> — ${esc(w.vi)}</div>`).join(''):'<div>🎉 Đúng hết!</div>'}<button class="pri" onclick="qz=null;vQz()">Làm lại</button>${qz.bad.length?'<button onclick="qStart(qz.bad)">Ôn các câu sai</button>':''}</div>`;
+ const q=qz.l[qz.i],m=qz.m,done=qz.sel!=null,P=m=='vt'?`<div class="hv">${esc(q.w.vi)}</div>`:m=='au'?'':`<div class="th hu">${esc(q.w.th)}</div>`;
+ B.innerHTML=`<div class="mu">Câu ${qz.i+1}/${qz.l.length} · Đúng: ${qz.s}</div><div style="text-align:center;margin:14px 0">${P}${m!='vt'?`<button class="${m=='au'?'pri':''}" onclick="say(qz.l[qz.i].w.th)">🔊 ${m=='au'?'Nghe':'Nghe lại'}</button>`:''}</div>`+q.o.map((o,j)=>`<button class="op ${m=='vt'?'th':''} ${done?(o==q.a?'ok':o==qz.sel?'no':''):''}" ${done?'disabled':''} onclick="qA(${j})">${esc(o)}</button>`).join('')+(done?`<div class="ctl"><button class="pri" onclick="qNext()">${qz.i+1<qz.l.length?'Câu tiếp ▶':'Xem kết quả'}</button></div>`:'');
+ if(m=='au'&&!done)say(q.w.th)}
+/* Nét chữ */
+const lab=x=>/[\u0E31\u0E34-\u0E3A\u0E47-\u0E4E]/.test(x)?'\u25CC'+x:x;
+function vSt(){if(!cur.length)return $('#body').innerHTML='<p class="mu">Chưa có từ.</p>';
+ st=st||{w:0,c:0};if(st.w>=cur.length)st.w=0;const w=cur[st.w],cs=[...new Set([...w.th].filter(c=>/[\u0E01-\u0E3A\u0E40-\u0E4E]/.test(c)))].slice(0,30);if(st.c>=cs.length)st.c=0;const c=cs[st.c];
+ $('#body').innerHTML=`<label class="box">Chọn từ<select onchange="st.w=+this.value;st.c=0;vSt()">${cur.map((x,i)=>`<option value="${i}" ${i==st.w?'selected':''}>${esc(x.th.slice(0,30))} — ${esc(x.vi.slice(0,30))}</option>`).join('')}</select></label>
+ <div class="ctl"><span class="th big">${esc(w.th)}</span><button onclick="say(cur[st.w].th)">🔊 Nghe</button></div>
+ <div class="ctl">${cs.map((x,j)=>`<button class="chip th ${j==st.c?'on':''}" onclick="st.c=${j};vSt()">${lab(x)}</button>`).join('')}</div>
+ ${c?`<div class="sv"><div><div class="mu">Mô phỏng vẽ viền chữ</div><svg viewBox="0 0 260 260" width="260" height="260"><text class="gl th" x="130" y="190" text-anchor="middle" font-size="200">${lab(c)}</text></svg><button onclick="vSt()">▶ Chạy lại</button></div><div><div class="mu">Tự tô theo nét mờ</div><canvas id="cv"></canvas><button onclick="cvClear()">🧽 Xóa nét vẽ</button></div></div>`:''}`;
+ if(c)initCv(lab(c))}
+let cvClear;
+function initCv(t){const c=$('#cv'),x=c.getContext('2d'),S=300,ac=getComputedStyle(document.body).getPropertyValue('--ac');c.width=c.height=S;
+ const g=()=>{x.clearRect(0,0,S,S);x.fillStyle='rgba(128,128,128,.3)';x.font='230px "Noto Sans Thai Looped","Sarabun",Tahoma,sans-serif';x.textAlign='center';x.fillText(t,S/2,215)};g();cvClear=g;let d=0,used=0;
+ const p=e=>{const r=c.getBoundingClientRect();return[(e.clientX-r.left)*S/r.width,(e.clientY-r.top)*S/r.height]};
+ c.onpointerdown=e=>{d=1;used=1;c.setPointerCapture(e.pointerId);x.beginPath();x.moveTo(...p(e))};
+ c.onpointermove=e=>{if(!d)return;x.strokeStyle=ac;x.lineWidth=9;x.lineCap=x.lineJoin='round';x.lineTo(...p(e));x.stroke()};
+ c.onpointerup=()=>d=0;document.fonts&&document.fonts.load('200px "Noto Sans Thai Looped"','ก').then(()=>{if(!used)g()}).catch(()=>{})}
+load();sel=(lib.decks.find(d=>d.parent===null)||{}).id||null;main();
 </script></body></html>
